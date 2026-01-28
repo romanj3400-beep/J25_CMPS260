@@ -1,29 +1,26 @@
 #!/bin/bash
 
-# notes:
-# archival tool is going to be tar
 echo "Data back/archival Tool"
 
+export timeStamp=`date +%F_%T`
+export argNum=2
 export toolName="backItUp.sh"
 export sourceDir=$1
 export backupDir=$2
 
-#echo "Usage: ${toolName} [source dir] [backup dir]"
-
-#echo "validate source dir if not exist error"
-if [ -d "$sourceDir" ] && [ -d "$backupDir" ]; then
-    echo "Backing up $soourceDir"
-    # Commands to run if the directory exists
-    cd $sourceDir
-    tar -cvzf $backupDir/backup.tar.bz2 ./*
+if [ $# -ne $argNum ]; then
+  echo "Usage: ${toolName} [source dir] [backup dir]"
+  exit 
 else
-    echo "Directory $sourceDir does not exist."
-    # Commands to run if the directory does not exist (e.g., create it)
+  if [ -d "$sourceDir" ] && [ -d "$backupDir" ]; then
+    LAST_DIR=$(basename "$sourceDir")
+    echo "Backing up $DIR_NAME"
+    cd $sourceDir/..
+    tar -cvzf $backupDir/${LAST_DIR}-${timeStamp}.tar.bz2 ./$LAST_DIR
+  else
+    echo "Error: invalid path given"
+    echo "source directory: $sourceDir"
+    echo "Archive directory: $backupDir"
+    exit
+  fi
 fi
-
-#echo "if source dir exist then validate backup dir"
-
-#echo "if both paths exist commence backup using tar"
-
-
-
