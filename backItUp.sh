@@ -2,7 +2,7 @@
 
 echo "Data back/archival Tool"
 
-export timeStamp=`date +%F_%T`
+export timeStamp=`date +%F_%M_%S`
 export argNum=2
 export toolName="backItUp.sh"
 export sourceDir=$1
